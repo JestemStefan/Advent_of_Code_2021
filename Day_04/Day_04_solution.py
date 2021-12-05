@@ -63,14 +63,12 @@ def solution_part_1():
 
         for grid in all_grids:
             for row in all_grids[grid]:
-                for e in all_grids[grid][row]:
+                if number in all_grids[grid][row]:
+                    all_grids[grid][row][number] = True
 
-                    if number == e:
-                        all_grids[grid][row][e] = True
+                    if all([all_grids[grid][row][x] for x in all_grids[grid][row]]):
 
-                        if all([all_grids[grid][row][x] for x in all_grids[grid][row]]):
-
-                            return get_grid_sum_times_number(all_grids[grid], number)
+                        return get_grid_sum_times_number(all_grids[grid], number)
 
 
 
