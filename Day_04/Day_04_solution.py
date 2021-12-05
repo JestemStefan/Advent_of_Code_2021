@@ -2,28 +2,25 @@ import timeit
 
 def mark_number_in_grid_if_exist(grid: dict, number: int):
     for row in grid:
-        for e in grid[row]:
-            if number == e:
-                grid[row][e] = True
-                if number == 59:
-                    pass
+        if number in grid[row]:
+            grid[row][number] = True
+            return
 
 
 def check_grid_completeness(grid: dict):
-    rows_in_grid = [[grid[row][e] for e in grid[row]] for row in grid]
-    columns_in_grid = [[grid[row][list(grid[row].keys())[i]] for row in grid] for i in range(5)]
+    for row in grid:
+        if all(list(grid[row].values())):
+            return True
 
-    if any([all(row) for row in rows_in_grid]) or any([all(column) for column in columns_in_grid]):
-        return True
+    for i in range(5):
+        if all([grid[row][list(grid[row].keys())[i]] for row in grid]):
+            return True
 
     return False
 
 def get_grid_sum_times_number(grid: dict, number: int):
-    sum_of_grid = 0
-    for r in grid:
-        sum_of_grid += sum([x for x in grid[r] if not grid[r][x]])
 
-    return sum_of_grid * number
+    return sum([sum([x for x in grid[r] if not grid[r][x]]) for r in grid]) * number
 
 def solution_part_1():
     solution_part_1 = 0
@@ -116,25 +113,23 @@ def solution_part_2():
     list_of_uncomplate_grids = [x for x in range(100)]
 
     for number in drawn_numbers:
+        scan_grids = [x for x in list_of_uncomplate_grids]
+        for grid_index in scan_grids:
+            mark_number_in_grid_if_exist(all_grids[grid_index], number)
 
-        for grid_index in all_grids:
-            if grid_index in list_of_uncomplate_grids:
-                mark_number_in_grid_if_exist(all_grids[grid_index], number)
+            if check_grid_completeness(all_grids[grid_index]):
+                if len(list_of_uncomplate_grids) == 1:
+                    return get_grid_sum_times_number(all_grids[list_of_uncomplate_grids[0]], number)
 
-                if check_grid_completeness(all_grids[grid_index]):
-                    if grid_index in list_of_uncomplate_grids:
-                        if len(list_of_uncomplate_grids) == 1:
-                            return get_grid_sum_times_number(all_grids[list_of_uncomplate_grids[0]], number)
-
-                        list_of_uncomplate_grids.remove(grid_index)
+                list_of_uncomplate_grids.remove(grid_index)
 
 
 if __name__ == "__main__":
     print(
         f"Solution = {solution_part_1()}, "
-        f'Time = {timeit.timeit("solution_part_1()", globals=locals(), number=10)/10}s'
+        f'Time = {timeit.timeit("solution_part_1()", globals=locals(), number=100)/100}s'
     )
     print(
         f"Solution = {solution_part_2()}, "
-        f'Time = {timeit.timeit("solution_part_2()", globals=locals(), number=10)/10}s'
+        f'Time = {timeit.timeit("solution_part_2()", globals=locals(), number=100)/100}s'
     )
