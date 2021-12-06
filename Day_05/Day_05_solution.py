@@ -12,24 +12,27 @@ class Map:
         self.map = [[0 for x in range(1000)] for y in range(1000)]
 
     def travel_horizontal(self, start_pos: Position, end_pos: Position):
-        row = start_pos.y
+        sign = 1 if start_pos.x <= end_pos.x else -1
+        x_coord = start_pos.x
+        y_coord = start_pos.y
+        steps = abs(start_pos.x - end_pos.x) + 1
 
-        if start_pos.x <= end_pos.x:
-            for x_coord in range(start_pos.x, end_pos.x + 1):
-                self.map[row][x_coord] += 1
-        else:
-            for x_coord in range(end_pos.x, start_pos.x + 1):
-                self.map[row][x_coord] += 1
+        for _ in range(steps):
+            self.map[y_coord][x_coord] += 1
+            x_coord += sign
 
     def travel_vertical(self, start_pos: Position, end_pos: Position):
-        column = start_pos.x
+        sign = 1 if start_pos.y <= end_pos.y else -1
+        x_coord = start_pos.x
+        y_coord = start_pos.y
+        steps = abs(start_pos.y - end_pos.y) + 1
 
-        if start_pos.y <= end_pos.y:
-            for y_coord in range(start_pos.y, end_pos.y + 1):
-                self.map[y_coord][column] += 1
-        else:
-            for y_coord in range(end_pos.y, start_pos.y + 1):
-                self.map[y_coord][column] += 1
+        for _ in range(steps):
+            self.map[y_coord][x_coord] += 1
+            y_coord += sign
+
+
+
 
     def travel_diagonal(self, start_pos: Position, end_pos: Position):
         steps = abs(start_pos.x - end_pos.x)
