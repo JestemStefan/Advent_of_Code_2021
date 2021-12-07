@@ -23,21 +23,11 @@ def solution_part_2():
 
         average_h = sum(crabs_h_positions)//len(crabs_h_positions)
 
-        cost_for_pos = {}
-
         total_cost = 0
         for pos in crabs_h_positions:
-            # get saved value if exists
-            if pos in cost_for_pos:
-                total_cost += cost_for_pos[pos]
-
-            else:  # calculate cost
-                n_of_changes = abs(pos - average_h)
-                cost = sum([n_of_changes - x for x in range(n_of_changes)])
-                total_cost += cost
-
-                # save cost for future
-                cost_for_pos[pos] = cost
+            n_of_changes = abs(pos - average_h)
+            cost = (n_of_changes * (n_of_changes + 1))/2
+            total_cost += cost
 
         return total_cost
 
