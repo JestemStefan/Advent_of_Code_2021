@@ -108,13 +108,7 @@ def solution_part_1():
 
 
 def solution_part_2():
-    solution_part_2 = 0
-
-    with open("input_data.txt") as file:
-        for line in file:
-            solution_part_2 += get_encoded_number(line)
-
-    return solution_part_2
+    return sum([get_encoded_number(line) for line in open("input_data.txt")])
 
 
 if __name__ == "__main__":
