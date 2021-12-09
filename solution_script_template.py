@@ -24,9 +24,9 @@ def solution_part_2():
 if __name__ == "__main__":
     print(
         f"Solution Part 1 = {solution_part_1()}, "
-        f'Time = {timeit.timeit("solution_part_1()", globals=locals(), number=1000)/1000}s'
+        f'Time = {timeit.timeit("solution_part_1()", globals=locals(), number=10)/10}s'
     )
     print(
         f"Solution Part 2 = {solution_part_2()}, "
-        f'Time = {timeit.timeit("solution_part_2()", globals=locals(), number=1000)/1000}s'
+        f'Time = {timeit.timeit("solution_part_2()", globals=locals(), number=10)/10}s'
     )
